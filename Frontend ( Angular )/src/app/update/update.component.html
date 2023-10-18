@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="w-75 mx-auto py-5">
+    <h2 class="py-3">Update Now:</h2>
+    <form *ngIf="Users" [formGroup]="UpdateForm">
+      <div>
+        <label for="Name">Name</label>
+        <input readonly type="text" class="form-control" id="Name" [value]="Users.first_name">
+
+      </div>
+      <div>
+        <label for="email"> E-mail</label>
+        <input readonly readonly type="email" class="form-control" id="email" [value]="Users.email">
+      </div>
+      <div>
+        <label for="attendance"> Attendance</label>
+        <input type="text" id="attendance" class="form-control" name="attendance"
+          [value]="Users.last_login|date:'dd/mm/yyyy hh:mm:ss'">
+      </div>
+      <div>
+        <label for="Group"> Group</label>
+        <input readonly type="text" class="form-control" id="Group" [value]="Users.group">
+
+      </div>
+      <button *ngIf="!isLoading" (click)="UpdateEmployee(UpdateForm)"
+        class="btn bg-main text-white my-2">Update</button>
+      <button *ngIf="isLoading" class="btn bg-main text-white my-2"><i
+          class="fa-solid fa-spinner fa-spin text-white"></i></button>
+    </form>
+  </div>
+</div>

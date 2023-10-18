@@ -1,0 +1,32 @@
+<div class="container py-5">
+  <div class="d-flex justify-content-around mb-5">
+    <h1>Welcome Karim</h1>
+    <button routerLink="../register" class="btn bg-main text-white my-2">Add Employee</button>
+  </div>
+  <div class="w-75 mx-auto">
+    <input [(ngModel)]="searchTerm" type="text" class="form-control" placeholder="Search by name ...">
+  </div>
+  <table *ngIf="Users" class="table my-5">
+    <thead>
+      <tr class="text-center">
+        <th scope="col">Name</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">Group</th>
+        <th scope="col">Attendance</th>
+        <th scope="col">Delete</th>
+        <th scope="col">Update</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let User of Users|search:searchTerm">
+      <tr>
+        <td class="text-center">{{User.first_name + " " + User.last_name}}</td>
+        <td class="text-center">{{User.email}}</td>
+        <td class="text-center">{{User.group}}</td>
+        <td class="text-center">{{User.date_joined|date:'MM/dd/yyyy hh:mm a'}}</td>
+        <td (click)="DeleteEmployee(User.id)" class="text-center"><i class="fa-solid fa-trash"
+            style="color: #ff0000;"></i></td>
+        <td [routerLink]="['/update',User.id]" class="text-center"><i class="fa-solid fa-pen"></i></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

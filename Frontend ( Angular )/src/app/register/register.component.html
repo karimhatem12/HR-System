@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="w-75 mx-auto py-5">
+    <h2 class="py-3">Register Now:</h2>
+    <form [formGroup]="registerForm">
+      <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+      <div>
+        <label for="first_name"> First name</label>
+        <input formControlName="first_name" type="text" class="form-control" id="first_name">
+        <div *ngIf="registerForm.get('first_name')?.errors&&registerForm.get('first_name')?.touched"
+          class="alert alert-danger">
+          <p *ngIf="registerForm.get('first_name')?.getError('required')">First name is required</p>
+          <p *ngIf="registerForm.get('first_name')?.getError('minlength')">First name Length greater than 3
+            letters</p>
+          <p *ngIf="registerForm.get('first_name')?.getError('maxlength')">First name Length smaller than 20
+            letters</p>
+        </div>
+      </div>
+      <div>
+        <label for="last_name"> Last name</label>
+        <input formControlName="last_name" type="text" class="form-control" id="last_name">
+        <div *ngIf="registerForm.get('last_name')?.errors&&registerForm.get('last_name')?.touched"
+          class="alert alert-danger">
+          <p *ngIf="registerForm.get('last_name')?.getError('required')">Last name is required</p>
+          <p *ngIf="registerForm.get('last_name')?.getError('minlength')">Last name Length greater than 3
+            letters</p>
+          <p *ngIf="registerForm.get('last_name')?.getError('maxlength')">Last name Length smaller than 20
+            letters</p>
+        </div>
+      </div>
+      <div>
+        <label for="email"> E-mail</label>
+        <input formControlName="email" type="email" class="form-control" id="email">
+        <div *ngIf="registerForm.get('email')?.errors&&registerForm.get('email')?.touched" class="alert alert-danger">
+          <p *ngIf="registerForm.get('email')?.getError('required')">E-mail is required</p>
+          <p *ngIf="registerForm.get('email')?.getError('email')">please enter valid Email
+            as ex: example@test.com
+          </p>
+        </div>
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <div class="input-group">
+          <input formControlName="password" [type]="showPassword ? 'text' : 'password'" class="form-control"
+            id="password">
+          <button (click)="showHidePassword()" class="btn bg-main text-white" type="button" id="password"><i
+              class="fa-solid fa-eye"></i></button>
+        </div>
+        <div *ngIf="registerForm.get('password')?.errors&&registerForm.get('password')?.touched"
+          class="alert alert-danger">
+          <p *ngIf="registerForm.get('password')?.getError('required')">Password is required</p>
+          <p *ngIf="registerForm.get('password')?.getError('pattern')">please enter Lowercase ,
+            uercase ,
+            number min leanth 9
+          </p>
+        </div>
+      </div>
+      <div>
+        <label for="group"> Group</label>
+        <select class="form-select" aria-label="Default select example" formControlName="group">
+          <option value="HR">HR</option>
+          <option value="Normal Employee">Normal Employee</option>
+        </select>
+      </div>
+      <button *ngIf="!isLoading" [disabled]="registerForm.invalid" [disabled]="registerForm.invalid"
+        (click)="sendData(registerForm)" class="btn bg-main text-white my-2">Register</button>
+      <button *ngIf="isLoading" class="btn bg-main text-white my-2"><i
+          class="fa-solid fa-spinner fa-spin text-white"></i></button>
+    </form>
+  </div>
+</div>

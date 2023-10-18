@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="w-75 mx-auto py-5">
+    <h2 class="py-3">Login Now:</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="sendData(loginForm)">
+      <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+      <div>
+        <label for="email">E-mail</label>
+        <input formControlName="email" type="email" class="form-control" id="email" placeholder="E-mail">
+        <div *ngIf="loginForm.get('email')?.errors&&loginForm.get('email')?.touched" class="alert alert-danger">
+          <p *ngIf="loginForm.get('email')?.getError('required')">E-mail is required</p>
+          <p *ngIf="loginForm.get('email')?.getError('email')">please enter email as ex: example@test.com
+          </p>
+        </div>
+      </div>
+      <div>
+        <label for="password"> password</label>
+        <div class="input-group">
+          <input formControlName="password" [type]="showPassword ? 'text' : 'password'" class="form-control"
+            placeholder="password">
+          <button (click)="showHidePassword()" class="btn bg-main text-white" type="button" id="password"><i
+              class="fa-solid fa-eye"></i></button>
+        </div>
+        <div *ngIf="loginForm.get('password')?.errors&&loginForm.get('password')?.touched" class="alert alert-danger">
+          <p *ngIf="loginForm.get('password')?.getError('required')">password is required</p>
+          <p *ngIf="loginForm.get('password')?.getError('pattern')">please enter Lowercase , uercase ,
+            number min leanth 9
+          </p>
+        </div>
+
+      </div>
+      <button *ngIf="!isLoading" [disabled]="loginForm.invalid" [disabled]="loginForm.invalid" type="submit"
+        class="btn bg-main text-white my-2">Login</button>
+      <button type="button" *ngIf="isLoading" class="btn bg-main text-white my-2"><i
+          class="fa-solid fa-spinner fa-spin text-white"></i></button>
+    </form>
+  </div>
+</div>
